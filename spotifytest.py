@@ -3,8 +3,9 @@ import requests
 
 #Spotify authentication setup
 #Get your own ID and secret after creating a spotify developer account and starting a new app
-CLIENT_ID = 'should be secret'
-CLIENT_SECRET ='should be secret'
+
+CLIENT_ID = 'this should be secret'
+CLIENT_SECRET ='this should be secret'
 
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 auth_response = requests.post(AUTH_URL, {
@@ -29,7 +30,8 @@ headers = {
 }
 BASE_URL = 'https://api.spotify.com/v1/'
 
-#returning audio features of an artist's song
-track_id = '46pWGuE3dSwY3bMMXGBvVS'
-r = requests.get(BASE_URL + 'audio-features/' + track_id, headers = headers)
+#returning details of an artist, Rema
+track_id = '46pWGuE3dSwY3bMMXGBvVS' #Can also pass as artist id
+r = requests.get(BASE_URL + 'artists/' + track_id, headers = headers)
 print(r.json())
+
