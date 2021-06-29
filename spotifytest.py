@@ -3,8 +3,8 @@ import requests
 
 #Spotify authentication setup
 #Get your own ID and secret after creating a spotify developer account and starting a new app
-CLIENT_ID = '1f66716c00d24a4e8b6b264e4a8a7ca0'
-CLIENT_SECRET ='df2e54832ad54f5fb68ae48a0d1dc802'
+CLIENT_ID = 'should be secret'
+CLIENT_SECRET ='should be secret'
 
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 auth_response = requests.post(AUTH_URL, {
