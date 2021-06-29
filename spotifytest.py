@@ -21,7 +21,7 @@ access_token = auth_response_data['access_token']
 
 
 #Get rema's music details
-token = "Bearer{token}".format(token=access_token)
+token = "Bearer {token}".format(token=access_token)
 print(token)
 
 headers = {
