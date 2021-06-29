@@ -31,5 +31,5 @@ BASE_URL = 'https://api.spotify.com/v1/'
 
 #returning audio features of an artist's song
 track_id = '46pWGuE3dSwY3bMMXGBvVS'
-r = requests.get(BASE_URL + 'audio-features/' + track_id_id, headers = headers)
+r = requests.get(BASE_URL + 'audio-features/' + track_id, headers = headers)
 print(r.json())
