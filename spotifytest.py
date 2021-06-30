@@ -1,11 +1,13 @@
-import spotipy
+import spotipy, sqlalchemy
 import requests
+import pandas as pd
+from sqlalchemy import create_engine
 
 #Spotify authentication setup
 #Get your own ID and secret after creating a spotify developer account and starting a new app
 
-CLIENT_ID = 'this should be secret'
-CLIENT_SECRET ='this should be secret'
+CLIENT_ID = '1f66716c00d24a4e8b6b264e4a8a7ca0'
+CLIENT_SECRET ='c7fccfc423b749fc9268eb383d2c169b'
 
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 auth_response = requests.post(AUTH_URL, {
@@ -14,24 +16,34 @@ auth_response = requests.post(AUTH_URL, {
   'client_secret' : CLIENT_SECRET,
 })
 
-print(auth_response.status_code)
 auth_response_data = auth_response.json()
-print(auth_response_data)
 
 access_token = auth_response_data['access_token']
 
-
-#Get rema's music details
+#Get rema's artist details
 token = "Bearer {token}".format(token=access_token)
-print(token)
 
 headers = {
-  "Authorization" : token
+  "Authorization" : token,
 }
 BASE_URL = 'https://api.spotify.com/v1/'
 
-#returning details of an artist, Rema
-track_id = '46pWGuE3dSwY3bMMXGBvVS' #Can also pass as artist id
-r = requests.get(BASE_URL + 'artists/' + track_id, headers = headers)
-print(r.json())
+#returning the albums of an artist, Kidi
+artist_id = '14PimM6ohO2gYftuwTam9V' #Can also pass as artist id
+r = requests.get(BASE_URL + 'artists/' + artist_id + '/albums?include_groups=album&market=US', headers = headers)
+value = r.json()
 
+#Converting to a pandas dataframe
+col_names = ["Artist's Name", "Album Name", "Number of tracks"]
+df = pd.DataFrame(columns = col_names)
+
+i = 0
+while i < len(value['items']):
+  df.loc[len(df.index)] = ['KiDi', value["items"][i]["name"], value["items"][i]["total_tracks"]]
+  i += 1
+
+#Creating an engine object
+engine = create_engine('mysql://root:codio@localhost/favorite_ghanaian_artists')
+
+#Creating and sending data to SQLtable from my dataframe
+df.to_sql('favorite_ghanaian_artists', con=engine, if_exists='replace', index=False)
