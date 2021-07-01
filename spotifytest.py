@@ -1,7 +1,9 @@
-import spotipy, sqlalchemy
+import spotipy, sqlalchemy, os
 import requests
 import pandas as pd
 from sqlalchemy import create_engine
+
+
 
 #Spotify authentication setup
 #Get your own ID and secret after creating a spotify developer account and starting a new app
@@ -48,15 +50,16 @@ def build_dataframe(value, name):
   while i < len(value['items']):
     df.loc[len(df.index)] = [name['name'], value["items"][i]["name"], value["items"][i]["total_tracks"]]
     i += 1
-  print(df)
   return df
 
 def write_to_sql(df):
+  #Loading database from sql file
+  os.system("mysql -u root -pcodio favorite_ghanaian_artists < spotifydata.sql")
   #Creating database
   #CREATE DATABASE IF NOT EXISTS favorite_ghanaian_artists;
   engine = create_engine('mysql://root:codio@localhost/favorite_ghanaian_artists')
   #Creating and sending data to SQLtable from my dataframe
-  return df.to_sql('favorite_ghanaian_artists', con=engine, if_exists='replace', index=False)
+  return df.to_sql('favorite_ghanaian_artists', con=engine, if_exists='append', index=False)
   
 
 def main():
