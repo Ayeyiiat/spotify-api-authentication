@@ -6,8 +6,8 @@ from sqlalchemy import create_engine
 #Spotify authentication setup
 #Get your own ID and secret after creating a spotify developer account and starting a new app
 
-CLIENT_ID = '1f66716c00d24a4e8b6b264e4a8a7ca0'
-CLIENT_SECRET ='c7fccfc423b749fc9268eb383d2c169b'
+CLIENT_ID = 'thisissecret'
+CLIENT_SECRET ='thisissecret'
 
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 auth_response = requests.post(AUTH_URL, {
