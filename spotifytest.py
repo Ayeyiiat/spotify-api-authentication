@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 #Spotify authentication setup
 #Get your own ID and secret after creating a spotify developer account and starting a new app
 
-CLIENT_ID = 'thisissecret'
-CLIENT_SECRET ='thisissecret'
+CLIENT_ID = '1f66716c00d24a4e8b6b264e4a8a7ca0'
+CLIENT_SECRET ='c7fccfc423b749fc9268eb383d2c169b'
 
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 auth_response = requests.post(AUTH_URL, {
@@ -77,8 +77,8 @@ def loadDataset(database_name, table_name, filename, name, update=False):
     loadSQLfromFile(filename, database_name)
     df = pd.read_sql_table(table_name, con=createEngine(database_name))
     column_name = "Number of tracks"
-    statistics(df)
-    return histogram(df, column_name)
+    return statistics(df)
+    
     
 def histogram(df, column_name):
   df.hist(column = column_name)
