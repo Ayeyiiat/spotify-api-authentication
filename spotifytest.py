@@ -77,6 +77,7 @@ def loadDataset(database_name, table_name, filename, name, update=False):
     loadSQLfromFile(filename, database_name)
     df = pd.read_sql_table(table_name, con=createEngine(database_name))
     column_name = "Number of tracks"
+    statistics(df)
     return histogram(df, column_name)
     
 def histogram(df, column_name):
@@ -90,6 +91,11 @@ def boxplot(df, column_name, name):
   box.set_xlabel(column_name)
   box.set_title("Distribution of "+ name['name'] +"'s albums")
   plt.show()
+  
+#Some data visualization
+def statistics(df):
+  print(df['Number of tracks'].mean())
+  print(df[["Album Name", "Number of tracks"]].describe())
 
 def main():
   print(" Welcome, you can use this program to get your favorite artist's album details.")
